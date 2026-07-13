@@ -1,0 +1,23 @@
+; Engine configuration file.
+; Non modificare manualmente le sezioni tra [] se non sai cosa fai.
+
+config_version=5
+
+[application]
+
+config/name="Ristorante Game"
+config/description="Gestionale/simulazione di ristorante ispirato al mondo della cucina reale."
+run/main_scene="res://scenes/ui/main_menu.tscn"
+config/features=PackedStringArray("4.3", "Mobile")
+config/icon="res://assets/sprites/icon.svg"
+
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/handheld/orientation="portrait"
+window/stretch/mode="canvas_items"
+
+[rendering]
+
+renderer/rendering_method="mobile"
