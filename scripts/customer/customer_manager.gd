@@ -28,6 +28,7 @@ func _try_spawn_customer() -> void:
 	var customer: Customer = customer_scene.instantiate()
 	customers_container.add_child(customer)
 	customer.global_position = door_position
+	customer.entry_position = door_position
 	customer.assigned_table = free_table
 
 	free_table.state = TableSpot.State.WAITING_ORDER

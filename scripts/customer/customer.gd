@@ -10,14 +10,14 @@ class_name Customer
 
 var assigned_table: TableSpot = null
 var recipe: Recipe = null
+var entry_position: Vector2 = Vector2.ZERO
 var _eating_timer: float = 0.0
 var _leaving: bool = false
-var _exit_position: Vector2 = Vector2.ZERO
 
 func _process(delta: float) -> void:
 	if _leaving:
-		global_position = global_position.move_toward(_exit_position, move_speed * delta)
-		if global_position.distance_to(_exit_position) < 4.0:
+		global_position = global_position.move_toward(entry_position, move_speed * delta)
+		if global_position.distance_to(entry_position) < 4.0:
 			queue_free()
 		return
 
