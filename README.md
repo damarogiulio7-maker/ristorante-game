@@ -32,8 +32,14 @@ ristorante-game/
 
 ## Cosa c'è già
 - Menu principale funzionante (`scenes/ui/main_menu.tscn`) con bottone "Inizia"
-- Scena cucina (`scenes/kitchen/kitchen_room.tscn`), vista isometrica con
-  pavimento a rombi placeholder, 2 stazioni di lavoro e 2 membri dello staff
+- Scena cucina (`scenes/kitchen/kitchen_room.tscn`), vista laterale 2D.
+  Sala di 16 metri (convenzione: 1 metro reale = 100 pixel di gioco):
+  cucina sul lato sinistro (0-5m, pavimento più chiaro), bancone di
+  separazione, sala con tavoli in legno sulla destra, muro di fondo con
+  2 finestre e una porta d'ingresso sul lato destro
+- Script `EnvPiece` (`scripts/kitchen/env_piece.gd`): elemento statico
+  placeholder dell'ambiente (muro, tavolo, finestra, porta...) — un
+  rettangolo colorato per ora, pronto per essere sostituito da sprite reali
 - Script `WorkStation` (`scripts/kitchen/work_station.gd`): logica generica
   di una stazione che riceve un ingrediente, ci lavora per un tempo definito,
   e produce un risultato — riutilizzabile per cottura, impiattamento, ecc.
@@ -55,8 +61,13 @@ ristorante-game/
 3. Premi F5 (o il tasto Play) per avviare il gioco
 
 ## Prossimi passi possibili
-- Sostituire i placeholder (rombi colorati, staff senza sprite) con grafica vera
+- Sostituire i placeholder (rettangoli colorati) con sprite/grafica vera
 - Sistema di assunzione staff (interfaccia per assumere/licenziare, costi)
 - Coda visibile degli ordini in attesa
 - Più stazioni e ricette più complesse (più passaggi)
 - Eventi/clienti con pazienza limitata che influenzano la reputazione
+
+## Convenzione misure
+1 metro reale = 100 pixel di gioco. Per aggiungere o ridimensionare
+elementi dell'ambiente, basta indicare la misura reale in metri (es.
+"tavolo 80cm x 80cm" → 80x80 px) e verrà convertita di conseguenza.
