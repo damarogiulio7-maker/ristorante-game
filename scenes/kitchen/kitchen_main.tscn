@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/kitchen/work_station.gd" id="1"]
+
+[node name="KitchenMain" type="Node2D"]
+
+[node name="CuttingStation" type="Node2D" parent="."]
+script = ExtResource("1")
+station_name = "Postazione Taglio"
+work_time_seconds = 3.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 600.0
+offset_bottom = 90.0
+text = "Cucina - Prima postazione: Taglio"
