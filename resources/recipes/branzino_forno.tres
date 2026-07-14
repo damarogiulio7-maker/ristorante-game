@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/recipe.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+recipe_name = "Branzino al forno"
+ingredients = Array[String](["branzino", "limone", "olio"])
+prep_time_seconds = 6.0
+sale_price = 22
+difficulty = 3

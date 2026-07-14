@@ -32,13 +32,21 @@ ristorante-game/
 
 ## Cosa c'è già
 - Menu principale funzionante (`scenes/ui/main_menu.tscn`) con bottone "Inizia"
-- Scena cucina base (`scenes/kitchen/kitchen_main.tscn`) con una prima
-  stazione di lavoro (taglio)
+- Scena cucina (`scenes/kitchen/kitchen_room.tscn`), vista isometrica con
+  pavimento a rombi placeholder, 2 stazioni di lavoro e 2 membri dello staff
 - Script `WorkStation` (`scripts/kitchen/work_station.gd`): logica generica
   di una stazione che riceve un ingrediente, ci lavora per un tempo definito,
   e produce un risultato — riutilizzabile per cottura, impiattamento, ecc.
+- Script `StaffMember` (`scripts/staff/staff_member.gd`): membro dello staff
+  autonomo, con stati Idle → si muove verso una stazione → lavora → torna
+  libero. Il giocatore non lo controlla direttamente, lo assume e supervisiona
+- Script `GameManager` (`scripts/core/game_manager.gd`): cuore della
+  simulazione. Genera ordini a intervalli regolari, li assegna al primo staff
+  libero e alla prima stazione libera, calcola guadagni e reputazione
 - Script `Recipe` (`scripts/data/recipe.gd`): risorsa dati per definire un
-  piatto (ingredienti, tempo di preparazione, prezzo, difficoltà)
+  piatto (ingredienti, tempo di preparazione, prezzo, difficoltà). Due
+  ricette di esempio già pronte in `resources/recipes/`
+- HUD base che mostra soldi, reputazione e ultimo ordine completato
 
 ## Come aprire il progetto
 1. Scarica e installa [Godot 4.3+](https://godotengine.org/download)
@@ -47,7 +55,8 @@ ristorante-game/
 3. Premi F5 (o il tasto Play) per avviare il gioco
 
 ## Prossimi passi possibili
-- Collegare la stazione di taglio a un input reale (drag & drop o tap)
-- Creare le prime ricette come risorse `.tres`
-- Aggiungere un sistema di ordini/clienti
-- Aggiungere sprite reali al posto dei placeholder
+- Sostituire i placeholder (rombi colorati, staff senza sprite) con grafica vera
+- Sistema di assunzione staff (interfaccia per assumere/licenziare, costi)
+- Coda visibile degli ordini in attesa
+- Più stazioni e ricette più complesse (più passaggi)
+- Eventi/clienti con pazienza limitata che influenzano la reputazione

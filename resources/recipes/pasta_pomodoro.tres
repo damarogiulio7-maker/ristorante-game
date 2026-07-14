@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/recipe.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+recipe_name = "Pasta al pomodoro"
+ingredients = Array[String](["pasta", "pomodoro", "basilico"])
+prep_time_seconds = 4.0
+sale_price = 12
+difficulty = 1
