@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/kitchen/kitchen_room.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/core/game_manager.gd" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/kitchen/table_spot.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/staff/waitress.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/customer/customer_manager.gd" id="8"]
+[ext_resource type="Script" path="res://scripts/kitchen/station_progress_bar.gd" id="9"]
 
 [sub_resource type="RectangleShape2D" id="table_click_shape"]
 size = Vector2(100, 70)
@@ -155,34 +156,34 @@ offset_bottom = 180.0
 color = Color(0.4, 0.3, 0.2, 1)
 
 [node name="EntranceDoor" type="Node2D" parent="Environment"]
-position = Vector2(1470, 220)
+position = Vector2(1470, 260)
 
 [node name="DoorFrame" type="ColorRect" parent="Environment/EntranceDoor"]
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 118.0
-offset_bottom = 288.0
+offset_bottom = 208.0
 color = Color(0.32, 0.24, 0.16, 1)
 
 [node name="DoorPanel" type="ColorRect" parent="Environment/EntranceDoor"]
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 110.0
-offset_bottom = 280.0
+offset_bottom = 200.0
 color = Color(0.42, 0.28, 0.16, 1)
 
 [node name="DoorWindow" type="ColorRect" parent="Environment/EntranceDoor"]
 offset_left = 20.0
-offset_top = 30.0
+offset_top = 20.0
 offset_right = 90.0
-offset_bottom = 110.0
+offset_bottom = 80.0
 color = Color(0.6, 0.8, 0.88, 0.85)
 
 [node name="DoorHandle" type="ColorRect" parent="Environment/EntranceDoor"]
 offset_left = 90.0
-offset_top = 140.0
+offset_top = 100.0
 offset_right = 100.0
-offset_bottom = 160.0
+offset_bottom = 118.0
 color = Color(0.85, 0.7, 0.2, 1)
 
 [node name="Counter" type="Node2D" parent="Environment"]
@@ -252,7 +253,7 @@ color = Color(0.3, 0.3, 0.32, 1)
 [node name="Table1" type="Node2D" parent="Environment/Tables"]
 position = Vector2(750, 430)
 script = ExtResource("6")
-seat_offset = Vector2(50, -40)
+seat_offset = Vector2(113, 25)
 
 [node name="Leg1" type="ColorRect" parent="Environment/Tables/Table1"]
 offset_left = 5.0
@@ -312,10 +313,21 @@ theme_override_font_sizes/font_size = 22
 text = ""
 visible = false
 
+[node name="PlateIcon" type="Node2D" parent="Environment/Tables/Table1"]
+position = Vector2(50, 38)
+
+[node name="Plate" type="Polygon2D" parent="Environment/Tables/Table1/PlateIcon"]
+color = Color(0.95, 0.95, 0.92, 1)
+polygon = PackedVector2Array(-12, 0, -8, -8, 0, -11, 8, -8, 12, 0, 8, 8, 0, 11, -8, 8)
+
+[node name="Food" type="Polygon2D" parent="Environment/Tables/Table1/PlateIcon"]
+color = Color(0.75, 0.4, 0.2, 1)
+polygon = PackedVector2Array(-6, 0, -4, -4, 0, -6, 4, -4, 6, 0, 4, 4, 0, 6, -4, 4)
+
 [node name="Table2" type="Node2D" parent="Environment/Tables"]
 position = Vector2(950, 430)
 script = ExtResource("6")
-seat_offset = Vector2(50, -40)
+seat_offset = Vector2(113, 25)
 
 [node name="Leg1" type="ColorRect" parent="Environment/Tables/Table2"]
 offset_left = 5.0
@@ -375,10 +387,21 @@ theme_override_font_sizes/font_size = 22
 text = ""
 visible = false
 
+[node name="PlateIcon" type="Node2D" parent="Environment/Tables/Table2"]
+position = Vector2(50, 38)
+
+[node name="Plate" type="Polygon2D" parent="Environment/Tables/Table2/PlateIcon"]
+color = Color(0.95, 0.95, 0.92, 1)
+polygon = PackedVector2Array(-12, 0, -8, -8, 0, -11, 8, -8, 12, 0, 8, 8, 0, 11, -8, 8)
+
+[node name="Food" type="Polygon2D" parent="Environment/Tables/Table2/PlateIcon"]
+color = Color(0.75, 0.4, 0.2, 1)
+polygon = PackedVector2Array(-6, 0, -4, -4, 0, -6, 4, -4, 6, 0, 4, 4, 0, 6, -4, 4)
+
 [node name="RoundTable" type="Node2D" parent="Environment/Tables"]
 position = Vector2(1180, 440)
 script = ExtResource("6")
-seat_offset = Vector2(0, -70)
+seat_offset = Vector2(60, 5)
 
 [node name="Leg" type="ColorRect" parent="Environment/Tables/RoundTable"]
 offset_left = -6.0
@@ -433,10 +456,21 @@ theme_override_font_sizes/font_size = 22
 text = ""
 visible = false
 
+[node name="PlateIcon" type="Node2D" parent="Environment/Tables/RoundTable"]
+position = Vector2(0, -6)
+
+[node name="Plate" type="Polygon2D" parent="Environment/Tables/RoundTable/PlateIcon"]
+color = Color(0.95, 0.95, 0.92, 1)
+polygon = PackedVector2Array(-14, 0, -10, -10, 0, -13, 10, -10, 14, 0, 10, 10, 0, 13, -10, 10)
+
+[node name="Food" type="Polygon2D" parent="Environment/Tables/RoundTable/PlateIcon"]
+color = Color(0.75, 0.4, 0.2, 1)
+polygon = PackedVector2Array(-7, 0, -5, -5, 0, -7, 5, -5, 7, 0, 5, 5, 0, 7, -5, 5)
+
 [node name="Table3" type="Node2D" parent="Environment/Tables"]
 position = Vector2(1330, 430)
 script = ExtResource("6")
-seat_offset = Vector2(50, -40)
+seat_offset = Vector2(113, 25)
 
 [node name="Leg1" type="ColorRect" parent="Environment/Tables/Table3"]
 offset_left = 5.0
@@ -496,6 +530,17 @@ theme_override_font_sizes/font_size = 22
 text = ""
 visible = false
 
+[node name="PlateIcon" type="Node2D" parent="Environment/Tables/Table3"]
+position = Vector2(50, 38)
+
+[node name="Plate" type="Polygon2D" parent="Environment/Tables/Table3/PlateIcon"]
+color = Color(0.95, 0.95, 0.92, 1)
+polygon = PackedVector2Array(-12, 0, -8, -8, 0, -11, 8, -8, 12, 0, 8, 8, 0, 11, -8, 8)
+
+[node name="Food" type="Polygon2D" parent="Environment/Tables/Table3/PlateIcon"]
+color = Color(0.75, 0.4, 0.2, 1)
+polygon = PackedVector2Array(-6, 0, -4, -4, 0, -6, 4, -4, 6, 0, 4, 4, 0, 6, -4, 4)
+
 [node name="Stations" type="Node2D" parent="."]
 position = Vector2(0, 100)
 
@@ -525,6 +570,24 @@ offset_top = -4.0
 offset_right = 18.0
 offset_bottom = -1.0
 color = Color(0.75, 0.76, 0.78, 1)
+
+[node name="ProgressBar" type="Node2D" parent="Stations/CuttingStation"]
+position = Vector2(0, -55)
+script = ExtResource("9")
+
+[node name="Background" type="ColorRect" parent="Stations/CuttingStation/ProgressBar"]
+offset_left = -30.0
+offset_top = -4.0
+offset_right = 30.0
+offset_bottom = 4.0
+color = Color(0.2, 0.2, 0.2, 0.6)
+
+[node name="Fill" type="ColorRect" parent="Stations/CuttingStation/ProgressBar"]
+offset_left = -30.0
+offset_top = -4.0
+offset_right = -30.0
+offset_bottom = 4.0
+color = Color(0.95, 0.75, 0.2, 1)
 
 [node name="CookingStation" type="Node2D" parent="Stations"]
 position = Vector2(350, 420)
@@ -574,6 +637,24 @@ offset_right = 3.0
 offset_bottom = -20.0
 color = Color(0.2, 0.2, 0.22, 1)
 
+[node name="ProgressBar" type="Node2D" parent="Stations/CookingStation"]
+position = Vector2(0, -55)
+script = ExtResource("9")
+
+[node name="Background" type="ColorRect" parent="Stations/CookingStation/ProgressBar"]
+offset_left = -30.0
+offset_top = -4.0
+offset_right = 30.0
+offset_bottom = 4.0
+color = Color(0.2, 0.2, 0.2, 0.6)
+
+[node name="Fill" type="ColorRect" parent="Stations/CookingStation/ProgressBar"]
+offset_left = -30.0
+offset_top = -4.0
+offset_right = -30.0
+offset_bottom = 4.0
+color = Color(0.95, 0.5, 0.2, 1)
+
 [node name="Staff" type="Node2D" parent="."]
 position = Vector2(0, 100)
 
@@ -613,6 +694,20 @@ offset_top = -50.0
 offset_right = 12.0
 offset_bottom = -38.0
 color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="LegLeft" type="ColorRect" parent="Staff/Cuoco1"]
+offset_left = -12.0
+offset_top = 36.0
+offset_right = -3.0
+offset_bottom = 58.0
+color = Color(0.2, 0.2, 0.24, 1)
+
+[node name="LegRight" type="ColorRect" parent="Staff/Cuoco1"]
+offset_left = 3.0
+offset_top = 36.0
+offset_right = 12.0
+offset_bottom = 58.0
+color = Color(0.2, 0.2, 0.24, 1)
 
 [node name="StaffLabel1" type="Label" parent="Staff/Cuoco1"]
 offset_left = -40.0
@@ -659,6 +754,20 @@ offset_right = 12.0
 offset_bottom = -38.0
 color = Color(0.95, 0.95, 0.95, 1)
 
+[node name="LegLeft" type="ColorRect" parent="Staff/Cuoco2"]
+offset_left = -12.0
+offset_top = 36.0
+offset_right = -3.0
+offset_bottom = 58.0
+color = Color(0.2, 0.2, 0.24, 1)
+
+[node name="LegRight" type="ColorRect" parent="Staff/Cuoco2"]
+offset_left = 3.0
+offset_top = 36.0
+offset_right = 12.0
+offset_bottom = 58.0
+color = Color(0.2, 0.2, 0.24, 1)
+
 [node name="StaffLabel2" type="Label" parent="Staff/Cuoco2"]
 offset_left = -40.0
 offset_top = 40.0
@@ -701,6 +810,20 @@ offset_top = -42.0
 offset_right = 12.0
 offset_bottom = -32.0
 color = Color(0.25, 0.15, 0.1, 1)
+
+[node name="LegLeft" type="ColorRect" parent="Staff/Cameriera"]
+offset_left = -12.0
+offset_top = 36.0
+offset_right = -3.0
+offset_bottom = 58.0
+color = Color(0.1, 0.1, 0.14, 1)
+
+[node name="LegRight" type="ColorRect" parent="Staff/Cameriera"]
+offset_left = 3.0
+offset_top = 36.0
+offset_right = 12.0
+offset_bottom = 58.0
+color = Color(0.1, 0.1, 0.14, 1)
 
 [node name="StaffLabelW" type="Label" parent="Staff/Cameriera"]
 offset_left = -40.0

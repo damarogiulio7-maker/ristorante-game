@@ -41,7 +41,7 @@ func _ready() -> void:
 
 	var customer_manager: CustomerManager = $CustomerManager
 	customer_manager.tables = tables
-	customer_manager.door_position = $Environment/EntranceDoor.global_position
+	customer_manager.door_position = $Environment/EntranceDoor.global_position + Vector2(55, 200)
 	customer_manager.customer_scene = load("res://scenes/staff/customer.tscn")
 	customer_manager.customers_container = $Customers
 
