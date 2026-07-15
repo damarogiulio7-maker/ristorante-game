@@ -398,74 +398,79 @@ polygon = PackedVector2Array(-12, 0, -8, -8, 0, -11, 8, -8, 12, 0, 8, 8, 0, 11, 
 color = Color(0.75, 0.4, 0.2, 1)
 polygon = PackedVector2Array(-6, 0, -4, -4, 0, -6, 4, -4, 6, 0, 4, 4, 0, 6, -4, 4)
 
-[node name="RoundTable" type="Node2D" parent="Environment/Tables"]
-position = Vector2(1180, 440)
+[node name="Table4" type="Node2D" parent="Environment/Tables"]
+position = Vector2(1180, 430)
 script = ExtResource("6")
-seat_offset = Vector2(60, 5)
+seat_offset = Vector2(113, 25)
 
-[node name="Leg" type="ColorRect" parent="Environment/Tables/RoundTable"]
-offset_left = -6.0
-offset_top = 30.0
-offset_right = 6.0
-offset_bottom = 60.0
+[node name="Leg1" type="ColorRect" parent="Environment/Tables/Table4"]
+offset_left = 5.0
+offset_top = 40.0
+offset_right = 13.0
+offset_bottom = 70.0
 color = Color(0.3, 0.2, 0.13, 1)
 
-[node name="TopShadow" type="Polygon2D" parent="Environment/Tables/RoundTable"]
-color = Color(0.4, 0.27, 0.15, 1)
-polygon = PackedVector2Array(-46, -6, -40, -26, -22, -38, 0, -42, 22, -38, 40, -26, 46, -6, 40, 14, 22, 26, 0, 30, -22, 26, -40, 14)
+[node name="Leg2" type="ColorRect" parent="Environment/Tables/Table4"]
+offset_left = 87.0
+offset_top = 40.0
+offset_right = 95.0
+offset_bottom = 70.0
+color = Color(0.3, 0.2, 0.13, 1)
 
-[node name="Top" type="Polygon2D" parent="Environment/Tables/RoundTable"]
-position = Vector2(0, -6)
-color = Color(0.55, 0.38, 0.22, 1)
-polygon = PackedVector2Array(-46, -6, -40, -26, -22, -38, 0, -42, 22, -38, 40, -26, 46, -6, 40, 14, 22, 26, 0, 30, -22, 26, -40, 14)
+[node name="Top" type="ColorRect" parent="Environment/Tables/Table4"]
+offset_left = 0.0
+offset_top = 30.0
+offset_right = 100.0
+offset_bottom = 46.0
+color = Color(0.52, 0.35, 0.2, 1)
 
-[node name="ChairBack" type="ColorRect" parent="Environment/Tables/RoundTable"]
-offset_left = -18.0
-offset_top = -80.0
-offset_right = 18.0
-offset_bottom = -46.0
+[node name="Cloth" type="ColorRect" parent="Environment/Tables/Table4"]
+offset_left = 8.0
+offset_top = 33.0
+offset_right = 92.0
+offset_bottom = 40.0
+color = Color(0.6, 0.45, 0.15, 0.55)
+
+[node name="ChairLeft" type="ColorRect" parent="Environment/Tables/Table4"]
+offset_left = -22.0
+offset_top = 20.0
+offset_right = -4.0
+offset_bottom = 58.0
 color = Color(0.4, 0.26, 0.16, 1)
 
-[node name="ChairLeft" type="ColorRect" parent="Environment/Tables/RoundTable"]
-offset_left = -70.0
-offset_top = -12.0
-offset_right = -50.0
-offset_bottom = 22.0
+[node name="ChairRight" type="ColorRect" parent="Environment/Tables/Table4"]
+offset_left = 104.0
+offset_top = 20.0
+offset_right = 122.0
+offset_bottom = 58.0
 color = Color(0.4, 0.26, 0.16, 1)
 
-[node name="ChairRight" type="ColorRect" parent="Environment/Tables/RoundTable"]
-offset_left = 50.0
-offset_top = -12.0
-offset_right = 70.0
-offset_bottom = 22.0
-color = Color(0.4, 0.26, 0.16, 1)
-
-[node name="ClickArea" type="Area2D" parent="Environment/Tables/RoundTable"]
-position = Vector2(0, -10)
+[node name="ClickArea" type="Area2D" parent="Environment/Tables/Table4"]
+position = Vector2(50, 38)
 input_pickable = true
 
-[node name="Shape" type="CollisionShape2D" parent="Environment/Tables/RoundTable/ClickArea"]
+[node name="Shape" type="CollisionShape2D" parent="Environment/Tables/Table4/ClickArea"]
 shape = SubResource("table_click_shape")
 
-[node name="MoneyIcon" type="Label" parent="Environment/Tables/RoundTable"]
-offset_left = -50.0
-offset_top = -60.0
-offset_right = 50.0
-offset_bottom = -30.0
+[node name="MoneyIcon" type="Label" parent="Environment/Tables/Table4"]
+offset_left = 0.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 20.0
 theme_override_font_sizes/font_size = 22
 text = ""
 visible = false
 
-[node name="PlateIcon" type="Node2D" parent="Environment/Tables/RoundTable"]
-position = Vector2(0, -6)
+[node name="PlateIcon" type="Node2D" parent="Environment/Tables/Table4"]
+position = Vector2(50, 38)
 
-[node name="Plate" type="Polygon2D" parent="Environment/Tables/RoundTable/PlateIcon"]
+[node name="Plate" type="Polygon2D" parent="Environment/Tables/Table4/PlateIcon"]
 color = Color(0.95, 0.95, 0.92, 1)
-polygon = PackedVector2Array(-14, 0, -10, -10, 0, -13, 10, -10, 14, 0, 10, 10, 0, 13, -10, 10)
+polygon = PackedVector2Array(-12, 0, -8, -8, 0, -11, 8, -8, 12, 0, 8, 8, 0, 11, -8, 8)
 
-[node name="Food" type="Polygon2D" parent="Environment/Tables/RoundTable/PlateIcon"]
+[node name="Food" type="Polygon2D" parent="Environment/Tables/Table4/PlateIcon"]
 color = Color(0.75, 0.4, 0.2, 1)
-polygon = PackedVector2Array(-7, 0, -5, -5, 0, -7, 5, -5, 7, 0, 5, 5, 0, 7, -5, 5)
+polygon = PackedVector2Array(-6, 0, -4, -4, 0, -6, 4, -4, 6, 0, 4, 4, 0, 6, -4, 4)
 
 [node name="Table3" type="Node2D" parent="Environment/Tables"]
 position = Vector2(1330, 430)
@@ -544,6 +549,13 @@ polygon = PackedVector2Array(-6, 0, -4, -4, 0, -6, 4, -4, 6, 0, 4, 4, 0, 6, -4, 
 [node name="Stations" type="Node2D" parent="."]
 position = Vector2(0, 100)
 
+[node name="KitchenCounterBase" type="ColorRect" parent="Stations"]
+offset_left = 90.0
+offset_top = 25.0
+offset_right = 330.0
+offset_bottom = 60.0
+color = Color(0.4, 0.28, 0.18, 1)
+
 [node name="CuttingStation" type="Node2D" parent="Stations"]
 position = Vector2(150, 420)
 script = ExtResource("3")
@@ -589,8 +601,13 @@ offset_right = -30.0
 offset_bottom = 4.0
 color = Color(0.95, 0.75, 0.2, 1)
 
+[node name="ActivityIcon" type="Polygon2D" parent="Stations/CuttingStation"]
+position = Vector2(0, -20)
+color = Color(0.8, 0.82, 0.85, 1)
+polygon = PackedVector2Array(-10, 0, 6, -8, 10, -4, -6, 4)
+
 [node name="CookingStation" type="Node2D" parent="Stations"]
-position = Vector2(350, 420)
+position = Vector2(270, 420)
 script = ExtResource("3")
 station_name = "Fuochi a induzione"
 work_time_seconds = 4.0
@@ -655,6 +672,11 @@ offset_right = -30.0
 offset_bottom = 4.0
 color = Color(0.95, 0.5, 0.2, 1)
 
+[node name="ActivityIcon" type="Polygon2D" parent="Stations/CookingStation"]
+position = Vector2(0, -20)
+color = Color(0.95, 0.55, 0.15, 1)
+polygon = PackedVector2Array(0, -10, 6, 0, 3, 6, 0, 2, -3, 6, -6, 0)
+
 [node name="Staff" type="Node2D" parent="."]
 position = Vector2(0, 100)
 
@@ -718,7 +740,7 @@ text = "Marco"
 horizontal_alignment = 1
 
 [node name="Cuoco2" type="Node2D" parent="Staff"]
-position = Vector2(350, 550)
+position = Vector2(270, 550)
 script = ExtResource("4")
 staff_name = "Sara"
 skill_level = 2

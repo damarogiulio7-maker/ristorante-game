@@ -2,12 +2,14 @@ extends Node2D
 class_name Waitress
 
 ## La cameriera collega clienti e cucina: va ai tavoli con clienti in attesa,
-## prende l'ordine e lo passa al GameManager, poi quando il piatto è pronto
-## lo ritira in cucina e lo porta al tavolo giusto.
+## si ferma un attimo a "parlare" e prendere l'ordine, lo passa al
+## GameManager, poi quando il piatto è pronto lo ritira in cucina e lo
+## porta al tavolo giusto.
 
-enum State { IDLE, GOING_TO_ORDER, WAITING_FOR_FOOD, GOING_TO_KITCHEN, GOING_TO_SERVE }
+enum State { IDLE, GOING_TO_ORDER, TALKING, WAITING_FOR_FOOD, GOING_TO_KITCHEN, GOING_TO_SERVE }
 
 @export var move_speed: float = 150.0
+@export var talk_time_seconds: float = 1.2
 
 var tables: Array[TableSpot] = []
 var recipes: Array[Recipe] = []
@@ -17,6 +19,7 @@ var kitchen_pickup_position: Vector2 = Vector2.ZERO
 var state: State = State.IDLE
 var _current_table: TableSpot = null
 var _current_order: Dictionary = {}
+var _talk_timer: float = 0.0
 
 func _ready() -> void:
 	if game_manager:
@@ -28,6 +31,10 @@ func _process(delta: float) -> void:
 			_find_table_to_serve()
 		State.GOING_TO_ORDER:
 			_move_toward(_current_table.global_position, delta, _on_reached_table_for_order)
+		State.TALKING:
+			_talk_timer += delta
+			if _talk_timer >= talk_time_seconds:
+				_take_order()
 		State.GOING_TO_KITCHEN:
 			_move_toward(kitchen_pickup_position, delta, _on_reached_kitchen)
 		State.GOING_TO_SERVE:
@@ -48,6 +55,10 @@ func _find_table_to_serve() -> void:
 			return
 
 func _on_reached_table_for_order() -> void:
+	_talk_timer = 0.0
+	state = State.TALKING
+
+func _take_order() -> void:
 	var recipe: Recipe = recipes[randi() % recipes.size()]
 	_current_order = {
 		"item_name": recipe.recipe_name,

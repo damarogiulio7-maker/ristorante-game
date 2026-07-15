@@ -25,8 +25,17 @@ var _last_state: State = State.EMPTY
 func _ready() -> void:
 	if click_area:
 		click_area.input_event.connect(_on_click_area_input)
+		click_area.mouse_entered.connect(_on_mouse_entered)
+		click_area.mouse_exited.connect(_on_mouse_exited)
 	if plate_icon:
 		plate_icon.visible = false
+
+func _on_mouse_entered() -> void:
+	if state == State.DIRTY_WITH_MONEY:
+		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+
+func _on_mouse_exited() -> void:
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
 func _process(_delta: float) -> void:
 	if state != _last_state:
@@ -59,3 +68,4 @@ func _collect_money() -> void:
 	state = State.EMPTY
 	if money_icon:
 		money_icon.visible = false
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
