@@ -5,6 +5,7 @@ class_name CustomerManager
 
 @export var spawn_interval_seconds: float = 7.0
 
+var is_open: bool = false
 var tables: Array[TableSpot] = []
 var door_position: Vector2 = Vector2.ZERO
 var customer_scene: PackedScene
@@ -13,6 +14,8 @@ var customers_container: Node2D
 var _timer: float = 0.0
 
 func _process(delta: float) -> void:
+	if not is_open:
+		return
 	if customer_scene == null or customers_container == null:
 		return
 	_timer += delta

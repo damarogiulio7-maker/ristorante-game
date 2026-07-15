@@ -49,9 +49,16 @@ func _ready() -> void:
 	game_manager.reputation_changed.connect(_on_reputation_changed)
 	game_manager.order_completed.connect(_on_order_completed)
 
+	var open_button: Button = $HUD/OpenButton
+	open_button.pressed.connect(func():
+		customer_manager.is_open = true
+		open_button.visible = false
+		log_label.text = "Ristorante aperto, in attesa di clienti..."
+	)
+
 	_on_money_changed(game_manager.money)
 	_on_reputation_changed(game_manager.reputation)
-	log_label.text = "In attesa di clienti..."
+	log_label.text = "Ristorante chiuso. Premi \"Apri Ristorante\" per iniziare."
 
 func _on_money_changed(new_amount: int) -> void:
 	money_label.text = "Soldi: %d€" % new_amount

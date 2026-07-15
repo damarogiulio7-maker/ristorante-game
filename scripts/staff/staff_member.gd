@@ -1,11 +1,11 @@
 extends Node2D
 class_name StaffMember
 
-## Un membro dello staff che lavora in autonomia: si sposta verso una
-## stazione libera, ci lavora, poi torna disponibile per il prossimo compito.
-## Il giocatore non lo controlla direttamente: lo assume e lo supervisiona.
+## Un membro dello staff che si sposta verso una stazione libera e aspetta
+## che il giocatore clicchi la stazione per iniziare davvero a lavorare.
+## Il giocatore non lo controlla direttamente, ma deve dare il via al lavoro.
 
-enum State { IDLE, MOVING_TO_STATION, WORKING }
+enum State { IDLE, MOVING_TO_STATION, WAITING_FOR_PLAYER, WORKING }
 
 @export var staff_name: String = "Cuoco"
 @export var move_speed: float = 120.0
@@ -33,7 +33,18 @@ func _process(delta: float) -> void:
 		var target_pos: Vector2 = _target_station.global_position
 		global_position = global_position.move_toward(target_pos, move_speed * delta)
 		if global_position.distance_to(target_pos) < 4.0:
-			_begin_work()
+			_arrive_at_station()
+
+func _arrive_at_station() -> void:
+	state = State.WAITING_FOR_PLAYER
+	_target_station.show_ready_prompt(true)
+	_target_station.player_start_requested.connect(_on_player_start, CONNECT_ONE_SHOT)
+
+func _on_player_start() -> void:
+	if state != State.WAITING_FOR_PLAYER:
+		return
+	_target_station.show_ready_prompt(false)
+	_begin_work()
 
 func _begin_work() -> void:
 	state = State.WORKING
@@ -45,10 +56,9 @@ func _begin_work() -> void:
 	if not _target_station.work_completed.is_connected(_on_station_work_completed):
 		_target_station.work_completed.connect(_on_station_work_completed, CONNECT_ONE_SHOT)
 
-	# La velocità effettiva viene leggermente influenzata dallo skill_level.
 	var speed_bonus: float = 1.0 + (skill_level - 1) * 0.15
-	_target_station.work_time_seconds = max(0.5, _target_station.work_time_seconds / speed_bonus)
-	_target_station.start_work(item_name, result_name)
+	var duration: float = max(0.5, _target_station.work_time_seconds / speed_bonus)
+	_target_station.start_work(item_name, result_name, duration)
 
 func _on_station_work_completed(_item_name: String, result_name: String) -> void:
 	_current_order["result_name"] = result_name

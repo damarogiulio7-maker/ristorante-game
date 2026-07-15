@@ -1,9 +1,10 @@
 extends Node2D
 class_name WorkStation
 
-## Rappresenta una stazione di lavoro in cucina (es. taglio, cottura, impiattamento).
-## Ogni stazione riceve un ingrediente, lo lavora in un certo tempo, e produce un
-## risultato. Emette progress_updated (0..1) per mostrare una barra di preparazione.
+## Rappresenta una stazione di lavoro in cucina (es. taglio, cottura).
+## Quando un cuoco arriva, la stazione aspetta un click per iniziare, poi il
+## giocatore deve continuare a cliccare per far procedere la preparazione
+## (stile Cooking Mama/Overcooked) fino al completamento.
 
 @export var station_name: String = "Stazione"
 @export var work_time_seconds: float = 3.0
@@ -11,32 +12,72 @@ class_name WorkStation
 signal work_started(item_name: String)
 signal work_completed(item_name: String, result_name: String)
 signal progress_updated(fraction: float)
+signal player_start_requested
 
-var _is_working: bool = false
+var _is_busy: bool = false
+var _in_progress: bool = false
+var _waiting_for_first_click: bool = false
 var _current_item: String = ""
-var _elapsed: float = 0.0
+var _current_result: String = ""
+var _taps_done: int = 0
+var _taps_required: int = 3
 
-func start_work(item_name: String, result_name: String) -> void:
-	if _is_working:
+@onready var click_area: Area2D = $ClickArea if has_node("ClickArea") else null
+@onready var ready_prompt: Label = $ReadyPrompt if has_node("ReadyPrompt") else null
+
+func _ready() -> void:
+	if click_area:
+		click_area.input_event.connect(_on_click_area_input)
+	if ready_prompt:
+		ready_prompt.visible = false
+
+func show_ready_prompt(show: bool) -> void:
+	_waiting_for_first_click = show
+	if ready_prompt:
+		ready_prompt.text = "❗"
+		ready_prompt.visible = show
+
+func _on_click_area_input(_viewport, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if _waiting_for_first_click:
+			_waiting_for_first_click = false
+			if ready_prompt:
+				ready_prompt.visible = false
+			player_start_requested.emit()
+		elif _in_progress:
+			_register_tap()
+
+func start_work(item_name: String, result_name: String, duration: float) -> void:
+	if _is_busy:
 		push_warning("%s è già occupata." % station_name)
 		return
 
-	_is_working = true
+	_is_busy = true
+	_in_progress = true
 	_current_item = item_name
-	_elapsed = 0.0
+	_current_result = result_name
+	_taps_done = 0
+	_taps_required = max(3, int(round(duration * 2.0)))
 	work_started.emit(item_name)
-	_run_work(result_name)
+	progress_updated.emit(0.0)
+	if ready_prompt:
+		ready_prompt.text = "👆"
+		ready_prompt.visible = true
 
-func _run_work(result_name: String) -> void:
-	while _elapsed < work_time_seconds:
-		await get_tree().process_frame
-		_elapsed += get_process_delta_time()
-		progress_updated.emit(clampf(_elapsed / work_time_seconds, 0.0, 1.0))
+func _register_tap() -> void:
+	_taps_done += 1
+	progress_updated.emit(clampf(float(_taps_done) / float(_taps_required), 0.0, 1.0))
+	if _taps_done >= _taps_required:
+		_complete_work()
 
-	_is_working = false
-	work_completed.emit(_current_item, result_name)
+func _complete_work() -> void:
+	_is_busy = false
+	_in_progress = false
+	if ready_prompt:
+		ready_prompt.visible = false
+	work_completed.emit(_current_item, _current_result)
 	_current_item = ""
 	progress_updated.emit(0.0)
 
 func is_busy() -> bool:
-	return _is_working
+	return _is_busy
