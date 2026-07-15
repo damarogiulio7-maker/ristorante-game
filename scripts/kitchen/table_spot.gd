@@ -4,6 +4,14 @@ class_name TableSpot
 ## Un tavolo della sala. Tiene lo stato di occupazione, mostra il piatto
 ## quando il cliente sta mangiando, e i soldi lasciati alla fine del pasto.
 ## Cliccabile col mouse per raccogliere i soldi.
+##
+## STATI:
+## - EMPTY: Tavolo libero
+## - WAITING_ORDER: Cliente seduto, aspetta che la cameriera prenda l'ordine
+## - ORDER_TAKEN: Cameriera ha preso l'ordine, in cucina
+## - FOOD_READY: Il piatto è pronto (usato internamente)
+## - EATING: Cliente sta mangiando (mostra il piatto)
+## - DIRTY_WITH_MONEY: Cliente se n'è andato, ha lasciato i soldi (cliccabile)
 
 enum State { EMPTY, WAITING_ORDER, ORDER_TAKEN, FOOD_READY, EATING, DIRTY_WITH_MONEY }
 
@@ -13,7 +21,7 @@ signal money_available(table: TableSpot, amount: int)
 signal money_collected(table: TableSpot, amount: int)
 
 var state: State = State.EMPTY
-var current_customer: Node2D = null
+var current_customer: Customer = null
 var money_amount: int = 0
 
 var _last_state: State = State.EMPTY
@@ -56,6 +64,15 @@ func leave_money(amount: int) -> void:
 		money_icon.text = "💰%d€" % amount
 		money_icon.visible = true
 	money_available.emit(self, amount)
+
+## Ripulisce il tavolo quando il cliente se ne va arrabbiato (pazienza esaurita)
+func clear_customer() -> void:
+	current_customer = null
+	state = State.EMPTY
+	if money_icon:
+		money_icon.visible = false
+	if plate_icon:
+		plate_icon.visible = false
 
 func _on_click_area_input(_viewport, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
