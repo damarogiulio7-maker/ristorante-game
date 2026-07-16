@@ -1,0 +1,296 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/counter/counter_game.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/counter/ingredient_tray.gd" id="2"]
+
+[sub_resource type="RectangleShape2D" id="tray_shape"]
+size = Vector2(90, 70)
+
+[node name="CounterRoom" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1600.0
+offset_bottom = 900.0
+color = Color(0.55, 0.47, 0.38, 1)
+
+[node name="CounterSurface" type="ColorRect" parent="."]
+offset_left = 0.0
+offset_top = 620.0
+offset_right = 1600.0
+offset_bottom = 900.0
+color = Color(0.42, 0.28, 0.18, 1)
+
+[node name="CounterEdge" type="ColorRect" parent="."]
+offset_left = 0.0
+offset_top = 620.0
+offset_right = 1600.0
+offset_bottom = 634.0
+color = Color(0.28, 0.18, 0.1, 1)
+
+[node name="OrderBubble" type="Node2D" parent="."]
+position = Vector2(500, 80)
+
+[node name="BubbleBg" type="ColorRect" parent="OrderBubble"]
+offset_left = -420.0
+offset_top = -40.0
+offset_right = 420.0
+offset_bottom = 40.0
+color = Color(0.98, 0.96, 0.9, 0.95)
+
+[node name="OrderLabel" type="Label" parent="OrderBubble"]
+offset_left = -410.0
+offset_top = -20.0
+offset_right = 410.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.2, 0.15, 0.1, 1)
+text = "..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Plate" type="Node2D" parent="."]
+position = Vector2(750, 300)
+
+[node name="PlateBg" type="Polygon2D" parent="Plate"]
+color = Color(0.95, 0.95, 0.92, 1)
+polygon = PackedVector2Array(-160, -50, -140, -80, 0, -95, 140, -80, 160, -50, 140, -20, 0, -5, -140, -20)
+
+[node name="Items" type="Node2D" parent="Plate"]
+position = Vector2(-90, -55)
+
+[node name="Trays" type="Node2D" parent="."]
+position = Vector2(150, 700)
+
+[node name="Tray1" type="Node2D" parent="Trays"]
+position = Vector2(0, 0)
+script = ExtResource("2")
+ingredient_name = "pasta"
+
+[node name="Base" type="ColorRect" parent="Trays/Tray1"]
+offset_left = -45.0
+offset_top = -35.0
+offset_right = 45.0
+offset_bottom = 35.0
+color = Color(0.75, 0.6, 0.35, 1)
+
+[node name="Icon" type="ColorRect" parent="Trays/Tray1"]
+offset_left = -30.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 20.0
+color = Color(0.93, 0.85, 0.6, 1)
+
+[node name="Label" type="Label" parent="Trays/Tray1"]
+offset_left = -45.0
+offset_top = 38.0
+offset_right = 45.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 18
+text = "Pasta"
+horizontal_alignment = 1
+
+[node name="ClickArea" type="Area2D" parent="Trays/Tray1"]
+input_pickable = true
+
+[node name="Shape" type="CollisionShape2D" parent="Trays/Tray1/ClickArea"]
+shape = SubResource("tray_shape")
+
+[node name="Tray2" type="Node2D" parent="Trays"]
+position = Vector2(220, 0)
+script = ExtResource("2")
+ingredient_name = "pomodoro"
+
+[node name="Base" type="ColorRect" parent="Trays/Tray2"]
+offset_left = -45.0
+offset_top = -35.0
+offset_right = 45.0
+offset_bottom = 35.0
+color = Color(0.75, 0.6, 0.35, 1)
+
+[node name="Icon" type="ColorRect" parent="Trays/Tray2"]
+offset_left = -30.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 20.0
+color = Color(0.8, 0.22, 0.15, 1)
+
+[node name="Label" type="Label" parent="Trays/Tray2"]
+offset_left = -45.0
+offset_top = 38.0
+offset_right = 45.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 18
+text = "Pomodoro"
+horizontal_alignment = 1
+
+[node name="ClickArea" type="Area2D" parent="Trays/Tray2"]
+input_pickable = true
+
+[node name="Shape" type="CollisionShape2D" parent="Trays/Tray2/ClickArea"]
+shape = SubResource("tray_shape")
+
+[node name="Tray3" type="Node2D" parent="Trays"]
+position = Vector2(440, 0)
+script = ExtResource("2")
+ingredient_name = "basilico"
+
+[node name="Base" type="ColorRect" parent="Trays/Tray3"]
+offset_left = -45.0
+offset_top = -35.0
+offset_right = 45.0
+offset_bottom = 35.0
+color = Color(0.75, 0.6, 0.35, 1)
+
+[node name="Icon" type="ColorRect" parent="Trays/Tray3"]
+offset_left = -30.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 20.0
+color = Color(0.25, 0.55, 0.25, 1)
+
+[node name="Label" type="Label" parent="Trays/Tray3"]
+offset_left = -45.0
+offset_top = 38.0
+offset_right = 45.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 18
+text = "Basilico"
+horizontal_alignment = 1
+
+[node name="ClickArea" type="Area2D" parent="Trays/Tray3"]
+input_pickable = true
+
+[node name="Shape" type="CollisionShape2D" parent="Trays/Tray3/ClickArea"]
+shape = SubResource("tray_shape")
+
+[node name="Tray4" type="Node2D" parent="Trays"]
+position = Vector2(660, 0)
+script = ExtResource("2")
+ingredient_name = "branzino"
+
+[node name="Base" type="ColorRect" parent="Trays/Tray4"]
+offset_left = -45.0
+offset_top = -35.0
+offset_right = 45.0
+offset_bottom = 35.0
+color = Color(0.75, 0.6, 0.35, 1)
+
+[node name="Icon" type="ColorRect" parent="Trays/Tray4"]
+offset_left = -30.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 20.0
+color = Color(0.78, 0.82, 0.86, 1)
+
+[node name="Label" type="Label" parent="Trays/Tray4"]
+offset_left = -45.0
+offset_top = 38.0
+offset_right = 45.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 18
+text = "Branzino"
+horizontal_alignment = 1
+
+[node name="ClickArea" type="Area2D" parent="Trays/Tray4"]
+input_pickable = true
+
+[node name="Shape" type="CollisionShape2D" parent="Trays/Tray4/ClickArea"]
+shape = SubResource("tray_shape")
+
+[node name="Tray5" type="Node2D" parent="Trays"]
+position = Vector2(880, 0)
+script = ExtResource("2")
+ingredient_name = "limone"
+
+[node name="Base" type="ColorRect" parent="Trays/Tray5"]
+offset_left = -45.0
+offset_top = -35.0
+offset_right = 45.0
+offset_bottom = 35.0
+color = Color(0.75, 0.6, 0.35, 1)
+
+[node name="Icon" type="ColorRect" parent="Trays/Tray5"]
+offset_left = -30.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 20.0
+color = Color(0.92, 0.86, 0.2, 1)
+
+[node name="Label" type="Label" parent="Trays/Tray5"]
+offset_left = -45.0
+offset_top = 38.0
+offset_right = 45.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 18
+text = "Limone"
+horizontal_alignment = 1
+
+[node name="ClickArea" type="Area2D" parent="Trays/Tray5"]
+input_pickable = true
+
+[node name="Shape" type="CollisionShape2D" parent="Trays/Tray5/ClickArea"]
+shape = SubResource("tray_shape")
+
+[node name="Tray6" type="Node2D" parent="Trays"]
+position = Vector2(1100, 0)
+script = ExtResource("2")
+ingredient_name = "olio"
+
+[node name="Base" type="ColorRect" parent="Trays/Tray6"]
+offset_left = -45.0
+offset_top = -35.0
+offset_right = 45.0
+offset_bottom = 35.0
+color = Color(0.75, 0.6, 0.35, 1)
+
+[node name="Icon" type="ColorRect" parent="Trays/Tray6"]
+offset_left = -30.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 20.0
+color = Color(0.75, 0.63, 0.18, 1)
+
+[node name="Label" type="Label" parent="Trays/Tray6"]
+offset_left = -45.0
+offset_top = 38.0
+offset_right = 45.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 18
+text = "Olio"
+horizontal_alignment = 1
+
+[node name="ClickArea" type="Area2D" parent="Trays/Tray6"]
+input_pickable = true
+
+[node name="Shape" type="CollisionShape2D" parent="Trays/Tray6/ClickArea"]
+shape = SubResource("tray_shape")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="MoneyLabel" type="Label" parent="HUD"]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 400.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 32
+text = "Soldi: 0€"
+
+[node name="ReputationLabel" type="Label" parent="HUD"]
+offset_left = 30.0
+offset_top = 80.0
+offset_right = 400.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 28
+text = "Reputazione: 0"
+
+[node name="StatusLabel" type="Label" parent="HUD"]
+offset_left = 500.0
+offset_top = 470.0
+offset_right = 1100.0
+offset_bottom = 510.0
+theme_override_font_sizes/font_size = 26
+text = ""
+horizontal_alignment = 1
